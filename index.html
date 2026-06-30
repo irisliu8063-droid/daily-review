@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>每日复盘 · 2026年06月30日</title>
+<style>
+:root {
+  --c-bg: #f5f5f5;
+  --c-card: #fff;
+  --c-up: #d04a37;
+  --c-down: #1aab64;
+  --c-text: #1a1a1a;
+  --c-text-sub: #555;
+  --c-text-dim: #999;
+  --c-border: #eee;
+  --c-hero-from: #2c1810;
+  --c-hero-to: #1a0e08;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--c-bg); color: var(--c-text); font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; font-size: 16px; -webkit-font-smoothing: antialiased; }
+.hero { background: linear-gradient(135deg, var(--c-hero-from), var(--c-hero-to)); color: #fff; padding: 2rem 1.25rem 1.5rem; text-align: center; }
+.hero h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em; }
+.hero .quote { font-size: 0.875rem; opacity: 0.6; margin-top: 0.5rem; line-height: 1.5; }
+.hero .date { font-size: 0.875rem; opacity: 0.8; margin-top: 0.75rem; }
+.section { padding: 0.75rem 0.875rem; }
+.section-title { font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.625rem; display: flex; align-items: center; gap: 0.375rem; }
+.section-title::before { content: ''; display: inline-block; width: 0.2rem; height: 0.9rem; background: var(--c-up); border-radius: 0.1rem; }
+.card { background: var(--c-card); border-radius: 0.625rem; padding: 0.875rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 0.5rem; }
+.dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; }
+.quad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem; }
+.core-card { text-align: center; }
+.idx-card { text-align: center; padding: 0.625rem; }
+.label { font-size: 0.8125rem; color: var(--c-text-dim); margin-bottom: 0.25rem; }
+.val { font-size: 1.25rem; font-weight: 700; }
+.val.up { color: var(--c-up); }
+.val.down { color: var(--c-down); }
+.sub-val { font-size: 0.875rem; margin-top: 0.15rem; }
+.sub-val.up { color: var(--c-up); }
+.sub-val.down { color: var(--c-down); }
+.sub-val.neutral { color: var(--c-text-sub); }
+.bar-module { margin-bottom: 0.625rem; }
+.bar-module:last-child { margin-bottom: 0; }
+.bar-module-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.375rem; }
+.bar-module-title { font-size: 0.8125rem; color: var(--c-text-sub); }
+.bar-module-labels { display: flex; gap: 0.5rem; }
+.bar-label { font-size: 0.75rem; }
+.bar-label.up { color: var(--c-up); }
+.bar-label.down { color: var(--c-down); }
+.bar-label.flat { color: var(--c-text-dim); }
+.bar-module-wrap { display: flex; height: 0.375rem; border-radius: 0.2rem; overflow: hidden; gap: 1px; background: var(--c-border); }
+.bar-up { background: var(--c-up); transition: width 0.6s ease; }
+.bar-down { background: var(--c-down); transition: width 0.6s ease; }
+.bar-flat { background: #ccc; transition: width 0.6s ease; }
+.detail-box { margin-top: 0.5rem; }
+.desc { font-size: 0.9rem; color: var(--c-text-sub); line-height: 1.65; }
+.desc p + p { margin-top: 0.35rem; }
+.comment { margin-top: 0.5rem; font-size: 0.9375rem; font-weight: 600; padding: 0.5rem 0.625rem; border-radius: 0.375rem; background: rgba(208,74,55,0.08); }
+.comment.up { color: var(--c-up); }
+.comment.down { color: var(--c-down); border-left: 3px solid var(--c-down); background: rgba(26,171,100,0.08); }
+/* 高标梯队 */
+.ladder-group { margin-bottom: 0.875rem; padding-bottom: 0.875rem; border-bottom: 1px solid var(--c-border); }
+.ladder-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.ladder-header { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem; }
+.count { color: var(--c-text-dim); font-size: 0.8125rem; font-weight: 400; }
+.ladder-row-wrap { padding: 0.375rem 0; border-top: 1px dashed var(--c-border); }
+.ladder-name-line { display: flex; align-items: center; gap: 0.5rem; }
+.ladder-name { font-size: 0.9375rem; font-weight: 600; }
+.ladder-chg { font-size: 0.875rem; }
+.ladder-chg.up { color: var(--c-up); }
+.ladder-chg.down { color: var(--c-down); }
+.ladder-tag-cell { flex: 1; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.ladder-code { font-size: 0.75rem; color: var(--c-text-dim); margin-top: 0.1rem; }
+.ladder-reason { font-size: 0.8125rem; color: var(--c-text-sub); margin-top: 0.2rem; }
+.tag { display: inline-block; font-size: 0.6875rem; padding: 0.1rem 0.3rem; border-radius: 0.2rem; }
+.tag-up { background: rgba(208,74,55,0.1); color: var(--c-up); }
+.tag-down { background: rgba(26,171,100,0.1); color: var(--c-down); }
+/* 今日风口 */
+.wind-card { margin-bottom: 0.5rem; }
+.wind-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.wind-rank { background: var(--c-up); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 0.2rem; }
+.wind-name { font-size: 1rem; font-weight: 700; }
+.wind-chg { font-size: 1rem; font-weight: 700; }
+.wind-chg.up { color: var(--c-up); }
+.wind-chg.down { color: var(--c-down); }
+.wind-badges { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.badge-tag { font-size: 0.75rem; padding: 0.15rem 0.4rem; border-radius: 0.2rem; background: rgba(208,74,55,0.1); color: var(--c-up); }
+.wind-leader { font-size: 0.875rem; color: var(--c-text-sub); margin-bottom: 0.25rem; }
+.leader-label { color: var(--c-text-dim); }
+.wind-drivers { margin-top: 0.5rem; }
+.drivers-title { font-size: 0.8125rem; color: var(--c-text-dim); margin-bottom: 0.25rem; }
+.d-item { font-size: 0.875rem; color: var(--c-text-sub); margin-bottom: 0.2rem; line-height: 1.5; }
+.d-num { color: var(--c-up); font-weight: 600; margin-right: 0.15rem; }
+/* 热股 */
+.hot-list { display: flex; flex-direction: column; gap: 0.625rem; }
+.hot-row { display: flex; align-items: flex-start; gap: 0.625rem; }
+.hot-rank { width: 1.5rem; height: 1.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 700; color: #fff; flex-shrink: 0; margin-top: 0.1rem; }
+.hot-rank.r1 { background: #d04a37; }
+.hot-rank.r2 { background: #e07060; }
+.hot-rank.r3 { background: #e89080; }
+.hot-rank.r4, .hot-rank.r5 { background: #ccc; color: #666; }
+.hot-info { flex: 1; }
+.hot-top { display: flex; align-items: center; gap: 0.375rem; flex-wrap: wrap; margin-bottom: 0.15rem; }
+.hot-name { font-size: 0.9375rem; font-weight: 600; }
+.hot-chg { font-size: 0.875rem; }
+.hot-chg.up { color: var(--c-up); }
+.hot-chg.down { color: var(--c-down); }
+.hot-reason { font-size: 0.8125rem; color: var(--c-text-sub); line-height: 1.5; }
+/* 简报 */
+.brief-card { margin-bottom: 0.5rem; }
+.brief-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.25rem; }
+.brief-title .dot { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--c-up); flex-shrink: 0; }
+.brief-card.brief-down .brief-title .dot { background: var(--c-down); }
+.brief-highlight { font-size: 0.9375rem; font-weight: 700; color: var(--c-up); margin-bottom: 0.375rem; }
+.brief-card.brief-down .brief-highlight { color: var(--c-down); }
+.brief-body { font-size: 0.9rem; color: var(--c-text-sub); line-height: 1.6; }
+.brief-body p + p { margin-top: 0.375rem; }
+/* 明日展望 */
+.outlook-card { background: linear-gradient(135deg, #2c1810, #1a0e08); color: #fff; padding: 0.875rem; border-radius: 0.625rem; }
+.outlook-item { display: flex; gap: 0.5rem; margin-bottom: 0.875rem; }
+.outlook-item:last-child { margin-bottom: 0; }
+.outlook-num { width: 1.25rem; height: 1.25rem; border-radius: 50%; background: rgba(208,74,55,0.3); color: var(--c-up); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 700; flex-shrink: 0; }
+.outlook-content { flex: 1; }
+.outlook-dir { font-size: 1rem; font-weight: 600; }
+.outlook-logic { font-size: 0.875rem; opacity: 0.75; margin-top: 0.25rem; line-height: 1.5; }
+/* 风险 */
+.risk-card { padding: 0.75rem; }
+.risk-item { display: flex; gap: 0.375rem; align-items: flex-start; font-size: 0.9rem; margin-bottom: 0.625rem; line-height: 1.6; }
+.risk-item:last-child { margin-bottom: 0; }
+.risk-dot { width: 0.35rem; height: 0.35rem; border-radius: 50%; background: var(--c-down); flex-shrink: 0; margin-top: 0.375rem; }
+/* 情绪卡片 */
+.emotion-card { text-align: center; padding: 1.25rem 1rem; }
+.emotion-label { font-size: 0.8125rem; color: var(--c-text-dim); }
+.emotion-val { font-size: 1.5rem; font-weight: 700; margin: 0.375rem 0; }
+.emotion-val.up { color: var(--c-up); }
+.emotion-val.down { color: var(--c-down); }
+.emotion-val.flat { color: #888; }
+.emotion-pos { font-size: 0.9375rem; color: var(--c-text-sub); }
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.5rem; }
+.stat-item { background: var(--c-card); border-radius: 0.5rem; padding: 0.5rem; text-align: center; }
+.stat-val { font-size: 1.125rem; font-weight: 700; color: var(--c-up); }
+.stat-lbl { font-size: 0.75rem; color: var(--c-text-dim); margin-top: 0.1rem; }
+/* 首板 */
+.sb-list { display: flex; flex-direction: column; gap: 0.3rem; max-height: 16rem; overflow-y: auto; }
+.sb-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; padding: 0.2rem 0; border-bottom: 1px dashed var(--c-border); }
+.sb-code { color: var(--c-text-dim); width: 3.5rem; flex-shrink: 0; }
+.sb-name { flex: 1; font-weight: 500; }
+.sb-chg.up { color: var(--c-up); }
+.sb-chg.down { color: var(--c-down); }
+.sb-more { font-size: 0.8125rem; color: var(--c-text-dim); margin-top: 0.375rem; text-align: right; }
+/* 页脚 */
+.footer { text-align: center; padding: 1.25rem 1rem 2.5rem; font-size: 0.6875rem; color: var(--c-text-dim); line-height: 1.8; }
+/* 淡入动画 */
+.fade-in { opacity: 0; transform: translateY(0.5rem); transition: opacity 0.4s ease, transform 0.4s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- hero -->
+<div class="hero">
+  <h1>每日复盘</h1>
+  <div class="quote">市场短期是投票机，长期是称重机。 — 本杰明·格雷厄姆</div>
+  <div class="date">2026年06月30日 · 周二 · AI复盘</div>
+</div>
+
+<!-- 市场概况 -->
+<div class="section fade-in">
+  <div class="section-title">市场概况</div>
+  <div class="dual-grid">
+    <div class="card core-card">
+      <div class="label">涨停 / 跌停</div>
+      <div class="val up" style="font-size:1.75rem;">140只</div>
+      <div class="sub-val down">↓跌停 5只 · 炸板率 15.7%</div>
+    </div>
+    <div class="card core-card">
+      <div class="label">三市成交</div>
+      <div class="val" style="color:var(--c-text);font-size:1.5rem;">3.294万亿</div>
+      <div class="sub-val down">↓缩量 2450亿(6.92%)</div>
+    </div>
+  </div>
+  <div class="quad-grid">
+    <div class="card idx-card">
+      <div class="label">上证指数</div>
+      <div class="val up">4094.40</div>
+      <div class="sub-val up">+0.50%</div>
+    </div>
+    <div class="card idx-card">
+      <div class="label">深成指</div>
+      <div class="val up">13228.00</div>
+      <div class="sub-val up">+1.80%</div>
+    </div>
+    <div class="card idx-card">
+      <div class="label">创业板指</div>
+      <div class="val up">2924.00</div>
+      <div class="sub-val up">+2.97%</div>
+    </div>
+    <div class="card idx-card">
+      <div class="label">科创50</div>
+      <div class="val up">1185.00</div>
+      <div class="sub-val up">+3.20%</div>
+    </div></div>
+  <div class="card" style="margin-top:0.5rem;padding:0.75rem;">
+    <div class="bar-module">
+      <div class="bar-module-head">
+        <span class="bar-module-title">涨跌分布</span>
+        <div class="bar-module-labels">
+          <span class="bar-label up">涨 3054</span>
+          <span class="bar-label flat">平 90</span>
+          <span class="bar-label down">跌 2364</span>
+        </div>
+      </div>
+      <div class="bar-module-wrap">
+        <div class="bar-up bar-animate" data-w="55.45"></div>
+        <div class="bar-flat bar-animate" data-w="1.63"></div>
+        <div class="bar-down bar-animate" data-w="42.92"></div>
+      </div>
+    </div>
+    <div class="bar-module">
+      <div class="bar-module-head">
+        <span class="bar-module-title">涨停情况</span>
+        <div class="bar-module-labels">
+          <span class="bar-label up">涨停 140</span>
+          <span class="bar-label down">跌停 5</span>
+        </div>
+      </div>
+      <div class="bar-module-wrap">
+        <div class="bar-up bar-animate" data-w="96.55"></div>
+        <div class="bar-down bar-animate" data-w="3.45"></div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-box"><div class="comment up">科技一枝独秀，半导体涨停潮带动创业板大涨近3%；权重分化明显，银行大跌超2%压制上证空间；结构性行情特征突出，赚钱效应集中在硬科技赛道。</div></div>
+</div>
+
+<!-- 市场高标 -->
+<div class="section fade-in">
+  <div class="section-title">市场高标</div>
+  <div class="card">
+    <div class="ladder-group">
+      <div class="ladder-header">
+        <span style="color:var(--c-up);">3连板</span><span class="count">1只</span>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">兴业股份</span><span class="ladder-chg up">+10.04%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603928</div>
+        <div class="ladder-reason"></div>
+      </div>
+    </div>
+    <div class="ladder-group">
+      <div class="ladder-header">
+        <span style="color:var(--c-up);">2连板</span><span class="count">19只</span>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">勤上股份</span><span class="ladder-chg up">+9.95%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">002638</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">济民健康</span><span class="ladder-chg up">+10.03%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603222</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">长源东谷</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603950</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">多氟多</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">002407</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">浙江东日</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">600113</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">魅视科技</span><span class="ladder-chg up">+9.99%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">001229</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">国华退</span><span class="ladder-chg up">+9.68%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">000004</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">三维股份</span><span class="ladder-chg up">+9.97%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603033</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">华亚智能</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">003043</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">丸美生物</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603983</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">成都路桥</span><span class="ladder-chg up">+10.08%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">002628</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">昊华科技</span><span class="ladder-chg up">+10.00%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">600378</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">惠康科技</span><span class="ladder-chg up">+10.00%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">001237</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">联创光电</span><span class="ladder-chg up">+9.99%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">600363</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">合肥城建</span><span class="ladder-chg up">+10.01%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">002208</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">深中华A</span><span class="ladder-chg up">+10.07%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">000017</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">红板科技</span><span class="ladder-chg up">+10.00%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603459</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">金海通</span><span class="ladder-chg up">+10.00%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">603061</div>
+        <div class="ladder-reason"></div>
+      </div>
+      <div class="ladder-row-wrap">
+        <div class="ladder-name-line"><span class="ladder-name">海南海药</span><span class="ladder-chg up">+9.91%</span><div class="ladder-tag-cell"></div></div>
+        <div class="ladder-code">000566</div>
+        <div class="ladder-reason"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 今日风口 -->
+<div class="section fade-in"><div class="section-title">今日风口 TOP3</div>
+  <div class="card wind-card">
+    <div class="wind-head">
+      <span class="wind-rank">TOP1</span>
+      <span class="wind-name">半导体</span>
+      <span class="wind-chg up">+6.31%</span>
+      <div class="wind-badges"><span class="badge-tag">涨停26家</span></div>
+    </div>
+    <div class="wind-leader"><span class="leader-label">领涨龙头：</span>纳芯微(20cm涨停)、晶合集成(20cm涨停)</div><div class="wind-drivers"><div class="drivers-title">驱动因素</div><div class="d-item"><span class="d-num">1.</span> 全球20家模拟及功率半导体企业7月1日起涨价10%-25%</div><div class="d-item"><span class="d-num">2.</span> 韩国推出2655万亿韩元半导体超级产业集群投资计划</div><div class="d-item"><span class="d-num">3.</span> 存储芯片缺货态势延续至2028年</div></div>
+  </div>
+  <div class="card wind-card">
+    <div class="wind-head">
+      <span class="wind-rank">TOP2</span>
+      <span class="wind-name">计算机/CPO</span>
+      <span class="wind-chg up">+3.52%</span>
+      <div class="wind-badges"><span class="badge-tag">涨停15家</span></div>
+    </div>
+    <div class="wind-leader"><span class="leader-label">领涨龙头：</span>新易盛(+8.98%)、中际旭创(+4.10%)</div><div class="wind-drivers"><div class="drivers-title">驱动因素</div><div class="d-item"><span class="d-num">1.</span> 英伟达Vera Rubin计算平台发布，800G/1.6T光模块需求确定性增强</div><div class="d-item"><span class="d-num">2.</span> 国内算力基建资本开支持续增长，龙头订单可见度已到2027年</div></div>
+  </div>
+  <div class="card wind-card">
+    <div class="wind-head">
+      <span class="wind-rank">TOP3</span>
+      <span class="wind-name">电力设备</span>
+      <span class="wind-chg up">+2.41%</span>
+      <div class="wind-badges"><span class="badge-tag">涨停10家</span></div>
+    </div>
+    <div class="wind-leader"><span class="leader-label">领涨龙头：</span>许继电气、平高电气</div><div class="wind-drivers"><div class="drivers-title">驱动因素</div><div class="d-item"><span class="d-num">1.</span> 迎峰度夏用电负荷创历史新高，变压器等设备需求大增</div><div class="d-item"><span class="d-num">2.</span> 特高压建设加速推进，二季度招标规模超预期</div></div>
+  </div></div>
+
+<!-- 人气热股 -->
+<div class="section fade-in"><div class="section-title">人气热股 TOP5</div><div class="card"><div class="hot-list">
+    <div class="hot-row">
+      <div class="hot-rank r1">1</div>
+      <div class="hot-info">
+        <div class="hot-top"><span class="hot-name">京东方A</span><span class="hot-chg up">+9.18%</span><span class="tag tag-up">面板·半导体显示</span></div>
+        <div class="hot-reason">面板涨价周期+OLED出货量创新高，成交额445亿居首</div>
+      </div>
+    </div>
+    <div class="hot-row">
+      <div class="hot-rank r2">2</div>
+      <div class="hot-info">
+        <div class="hot-top"><span class="hot-name">中际旭创</span><span class="hot-chg up">+4.10%</span><span class="tag tag-up">CPO·光模块</span></div>
+        <div class="hot-reason">英伟达新平台发布+800G光模块放量，成交额349亿</div>
+      </div>
+    </div>
+    <div class="hot-row">
+      <div class="hot-rank r3">3</div>
+      <div class="hot-info">
+        <div class="hot-top"><span class="hot-name">新易盛</span><span class="hot-chg up">+8.98%</span><span class="tag tag-up">CPO·光模块</span></div>
+        <div class="hot-reason">全球AI算力建设推动光模块需求爆发，成交额345亿</div>
+      </div>
+    </div>
+    <div class="hot-row">
+      <div class="hot-rank r4">4</div>
+      <div class="hot-info">
+        <div class="hot-top"><span class="hot-name">澜起科技</span><span class="hot-chg up">+4.67%</span><span class="tag tag-up">半导体·存储接口</span></div>
+        <div class="hot-reason">DDR5渗透率提升+AI服务器需求高增</div>
+      </div>
+    </div>
+    <div class="hot-row">
+      <div class="hot-rank r5">5</div>
+      <div class="hot-info">
+        <div class="hot-top"><span class="hot-name">寒武纪</span><span class="hot-chg up">+7.66%</span><span class="tag tag-up">AI芯片·算力</span></div>
+        <div class="hot-reason">AI训练芯片需求旺盛+国产替代加速</div>
+      </div>
+    </div>
+  </div></div></div>
+
+<!-- 首板 -->
+<div class="section fade-in">
+  <div class="section-title">今日首板（120只）</div>
+  <div class="card">
+    <div class="sb-list">
+    </div>
+    <div class="sb-more">共 120 只，显示前 20 只</div>
+  </div>
+</div>
+
+<!-- 每日简报 -->
+<div class="section fade-in"><div class="section-title">每日简报</div>
+  <div class="card brief-card ">
+    <div class="brief-title"><span class="dot"></span>半导体板块爆发，全球涨价潮催化</div>
+    <div class="brief-highlight">今日亮点：板块涨幅6.31%，涨停超26家，全球20家半导体企业7月起涨价</div>
+    <div class="brief-body"><p>半导体板块今日全线爆发，板块涨幅6.31%，涨停个股超26家（含科创板20cm涨停），是今日绝对主线。核心催化是：全球20家模拟及功率半导体企业宣布7月1日起新一轮涨价，幅度10%-25%，原因为AI数据中心需求爆发导致产能紧缺。</p><p>韩国正式推出2655万亿韩元半导体超级产业集群计划，SK海力士追加投资1100万亿韩元扩大先进封装产能。A股方面，纳芯微、晶合集成、芯动联科等科创板标的集体20cm涨停，中芯国际涨超7%市值突破万亿。</p></div>
+  </div>
+  <div class="card brief-card brief-down">
+    <div class="brief-title"><span class="dot"></span>银行板块调整，拖累上证指数</div>
+    <div class="brief-highlight">今日亮点：银行板块下跌2.31%，工农中建四大行均跌超4%</div>
+    <div class="brief-body"><p>银行板块今日下跌2.31%，工农中建等大行跌幅均超4%，是拖累上证指数涨幅不足0.5%的主要因素。下跌原因：半年末资金面偏紧，银行间市场利率走升压缩息差预期；上半年银行板块累计涨幅较大，部分资金半年末获利了结。</p></div>
+  </div>
+  <div class="card brief-card ">
+    <div class="brief-title"><span class="dot"></span>CPO/光模块持续走强，算力基建逻辑兑现</div>
+    <div class="brief-highlight">今日亮点：板块涨幅约3.5%，新易盛涨8.98%，中际旭创涨4.10%</div>
+    <div class="brief-body"><p>CPO概念持续活跃，板块涨幅约3.5%，新易盛涨8.98%、中际旭创涨4.10%，成交额均超340亿。驱动逻辑：英伟达Vera Rubin超级计算平台正式发布，800G/1.6T光模块需求确定性进一步增强。国内算力基建资本开支持续增长，光模块龙头订单可见度已到2027年。</p></div>
+  </div></div>
+
+<!-- 情绪判断 -->
+<div class="section fade-in">
+  <div class="section-title">市场情绪</div>
+  <div class="card emotion-card">
+    <div class="emotion-label">今日情绪档位</div>
+    <div class="emotion-val up">🚀 主升浪</div>
+    <div class="emotion-pos">建议仓位：70% ~ 90%</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-item"><div class="stat-val">140</div><div class="stat-lbl">涨停</div></div>
+    <div class="stat-item"><div class="stat-val">20</div><div class="stat-lbl">连板</div></div>
+    <div class="stat-item"><div class="stat-val">15.7%</div><div class="stat-lbl">炸板率</div></div>
+  </div>
+</div>
+
+<!-- 明日展望 -->
+<div class="section fade-in"><div class="section-title">明日展望</div><div class="outlook-card"><div class="outlook-item"><div class="outlook-num">1</div><div class="outlook-content"><div class="outlook-dir">半导体涨价受益</div><div class="outlook-logic">关注功率半导体（斯达半导、时代电气）、模拟芯片（纳芯微、圣邦股份），全球涨价潮7月启动，板块催化明确</div></div></div><div class="outlook-item"><div class="outlook-num">2</div><div class="outlook-content"><div class="outlook-dir">CPO/光模块低吸</div><div class="outlook-logic">新易盛、中际旭创、天孚通信，回调即是机会，算力基建长逻辑未变</div></div></div><div class="outlook-item"><div class="outlook-num">3</div><div class="outlook-content"><div class="outlook-dir">面板涨价周期</div><div class="outlook-logic">京东方A今日放量大涨，面板价格进入上行通道，OLED渗透加速，趋势有望延续</div></div></div><div class="outlook-item"><div class="outlook-num">4</div><div class="outlook-content"><div class="outlook-dir">特高压/电力设备</div><div class="outlook-logic">许继电气、平高电气，迎峰度夏+特高压建设加速，二季度业绩可期</div></div></div></div></div>
+
+<!-- 关注风险 -->
+<div class="section fade-in"><div class="section-title">关注风险</div><div class="card risk-card"><div class="risk-item"><span class="risk-dot"></span><span>银行股继续调整风险：板块今日下跌2.31%，工农中建跌超4%，半年末资金面紧平衡下可能继续承压，短期回避</span></div><div class="risk-item"><span class="risk-dot"></span><span>高位连板股炸板风险：ST中装6连板后封单减弱，纯情绪博弈标的面临资金兑现压力，不建议追高</span></div><div class="risk-item"><span class="risk-dot"></span><span>成交额萎缩信号：今日成交额较昨日缩量6.92%(约2450亿)，若后续持续缩量需警惕市场热度降温</span></div></div></div>
+
+<!-- 页脚 -->
+<div class="footer">
+  <div>数据来源：东方财富 · 仅供参考，不构成投资建议</div>
+  <div>每日复盘 · 2026年06月30日</div>
+</div>
+
+<script>
+(function(){
+  var items=document.querySelectorAll('.fade-in');
+  if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('visible');});return;}
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}});},{threshold:0.1});
+  items.forEach(function(el){observer.observe(el);});
+})();
+(function(){
+  setTimeout(function(){document.querySelectorAll('.bar-animate').forEach(function(bar){var w=bar.getAttribute('data-w');if(w)bar.style.width=w+'%';});},300);
+})();
+</script>
+</body>
+</html>
